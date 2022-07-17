@@ -1,78 +1,60 @@
 #include "sort.h"
 
 /**
- * swap - for swapping the values of array indexes
- *
- * @a: first position
- * @b: second position
- */
-void swap(int *a, int *b)
-{
-	int temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
-/**
- * quick_sort - sort using quick sort algorithm and lomuto partitioning
- *
- * @array: array to be sorted
- * @size: number of elements in the array
- *
- * Return: Nothing
+ * quick_sort - sorts an array list of integers in ascending
+ * order using the quick_sort lomuto algorithm
+ * print the list after each
+ *  time you swap two elements
+ * @array: Array to be sorted
+ * @size: Size of Array
  */
 void quick_sort(int *array, size_t size)
 {
+
 	if (size > 1)
-		quicksort(array, size, 0, size - 1);
+		quick_aux(array, size, 0, size - 1);
 }
 
 /**
- * quicksort - function that contains logic for sorting
- *
- * @array: array to be sorted
- * @size: size of the array
- * @lo: lower boundary to be sorted
- * @hi: higher boundary for sorting
+ * quick_aux - recursion function in quick sort lomuto
+ * @array: Array to be sorted
+ * @size: Size of Array
+ * @low: inferior limit of array
+ * @high: Superior limit of array
  */
-void quicksort(int *array, size_t size, int lo, int hi)
+void quick_aux(int *array, size_t size, size_t low, size_t high)
 {
-	int p;
+	size_t j;
+	long int i = low - 1;
+	size_t aux;
 
-	if (lo >= hi)
-		return;
-
-	print_array(array, size);
-	p = partition(array, lo, hi);
-	quicksort(array, size, lo, p - 1); /* left side of the pivot */
-	quicksort(array, size, p + 1, hi); /* right side of the pivot */
-}
-
-/**
- * partition - function used to create sublists of the array
- *
- * @array: array for sublists to be created from
- * @lo: lower boundary of sublist
- * @hi: higher boundary of sublist
- *
- * Return: the new pivot index
- */
-size_t partition(int *array, int lo, int hi)
-{
-	int j;
-	int pivot = array[hi]; /* choosing last element as pivot */
-	int i = lo - 1; /* temporary pivot index */
-
-	for (j = lo; j < hi; j++)
+	for (j = low; j < high; j++)
 	{
-		if (array[j] < pivot)
+		if (array[j] < array[high])
 		{
 			i++;
-			swap(&array[i], &array[j]);
+			if (array[j] != array[i])
+			{
+				aux = array[j];
+				array[j] = array[i];
+				array[i] = aux;
+				print_array(array, size);
+			}
 		}
 	}
 	i++;
-	swap(&array[i], &array[j]);
-	return (i);
+	if (array[high] != array[i])
+	{
+		aux = array[i];
+		array[i] = array[high];
+		array[high] = aux;
+		print_array(array, size);
+	}
+
+	if ((long int)low < i - 1)
+		quick_aux(array, size, low, i - 1);
+
+	if (i + 1 < (long int)high)
+		quick_aux(array, size, i + 1, high);
 }
 
