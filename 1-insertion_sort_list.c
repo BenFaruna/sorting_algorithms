@@ -1,43 +1,42 @@
 #include "sort.h"
 
 /**
- * insertion_sort_list - sorts a doubly linked list using
- * insertion sort algorithm
- *
- * @list: the linked list to be sorted
- *
- * Return: nothing
+ * insertion_sort_list - sorts an linked list of integers in ascending
+ * order using the insertion_sort_list algorithm
+ * print the list after each
+ *  time you swap two elements
+ * @list: List to be sorted
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *current = NULL;
-	listint_t *transversal = NULL;
-	listint_t *temp = NULL;
+	listint_t *f = NULL;
+	listint_t *b = NULL;
+	listint_t *aux = NULL;
 
-	if (*list == NULL || list == NULL)
+	if (list == NULL || *list == NULL)
 		return;
 
-	for (current = *list; current != NULL; current = current->next)
+	for (f = *list; f != NULL; f = f->next)
 	{
-		for (transversal = current; current->prev != NULL;)
+		for (b = f; b->prev != NULL;)
 		{
-			if (transversal->n < transversal->prev->n)
+			if (b->prev->n > b->n)
 			{
-				if (transversal->prev->prev != NULL)
-					transversal->prev->prev->next = transversal;
+				if (b->prev->prev != NULL)
+					b->prev->prev->next = b;
 				else
-					*list = transversal;
+					*list = b;
 
-				if (transversal->next != NULL)
-					transversal->next->prev = transversal->prev;
+				if (b->next != NULL)
+					b->next->prev = b->prev;
 
-				temp = transversal->prev->prev;
+				aux = b->prev->prev;
 
-				transversal->prev->next = transversal->next;
-				transversal->prev->prev = transversal;
+				b->prev->next = b->next;
+				b->prev->prev = b;
 
-				transversal->next = transversal->prev;
-				transversal->prev = temp;
+				b->next = b->prev;
+				b->prev = aux;
 
 				print_list(*list);
 			}
@@ -46,4 +45,3 @@ void insertion_sort_list(listint_t **list)
 		}
 	}
 }
-
