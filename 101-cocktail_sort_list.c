@@ -75,18 +75,18 @@ void cocktail_sort_list(listint_t **list)
 		}
 	}
 }
-	
+
 /**
-   *  listint_len - number of elements in a linked listint_t list.
-    * @h: header of listint_t
-	 * Return: the number of nodes
-	  */
+ *  listint_len - number of elements in a linked listint_t list.
+ * @h: header of listint_t
+ * Return: the number of nodes
+ */
 size_t listint_len(listint_t *h)
 {
-		size_t len_list;
+	size_t len_list;
 
-			for (len_list = 0; h != NULL; len_list++)
-						h = h->next;
-				return (len_list);
+	for (len_list = 0; h != NULL; len_list++)
+		h = h->next;
+	return (len_list);
 }
 
